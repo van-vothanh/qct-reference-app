@@ -12,9 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import sun.misc.BASE64Decoder;
 
-import java.io.IOException;
+import java.util.Base64;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -73,12 +72,8 @@ public class CrudController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } else {
             final byte[] image;
-            try {
-                image = new BASE64Decoder().decodeBuffer(product.getImageBase64());
-                return new ResponseEntity<>(image, HttpStatus.CREATED);
-            } catch (IOException e) {
-                return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-            }
+            image = Base64.getDecoder().decode(product.getImageBase64());
+            return new ResponseEntity<>(image, HttpStatus.CREATED);
         }
     }
 
