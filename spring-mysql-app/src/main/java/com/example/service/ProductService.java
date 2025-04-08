@@ -17,7 +17,7 @@ public class ProductService {
     }
 
     public Product getProductById(final long id) {
-        return productRepository.getOne(id);
+        return productRepository.getReferenceById(id);
     }
 
     public List<Product> getAllProducts() {
